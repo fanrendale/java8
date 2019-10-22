@@ -12,6 +12,26 @@ public class Employee {
     private Integer age;
     private Double salary;
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Employee employee = (Employee) o;
+
+        if (name != null ? !name.equals(employee.name) : employee.name != null) return false;
+        if (age != null ? !age.equals(employee.age) : employee.age != null) return false;
+        return salary != null ? salary.equals(employee.salary) : employee.salary == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = name != null ? name.hashCode() : 0;
+        result = 31 * result + (age != null ? age.hashCode() : 0);
+        result = 31 * result + (salary != null ? salary.hashCode() : 0);
+        return result;
+    }
+
     public Employee() {
     }
 
