@@ -11,6 +11,23 @@ public class Employee {
     private String name;
     private Integer age;
     private Double salary;
+    private Status status;
+
+    /**
+     * 员工状态的枚举
+     */
+    public static enum Status{
+        FREE,
+        BUSY,
+        VACATION;
+    }
+
+    public Employee(String name, Integer age, Double salary, Status status) {
+        this.name = name;
+        this.age = age;
+        this.salary = salary;
+        this.status = status;
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -21,7 +38,8 @@ public class Employee {
 
         if (name != null ? !name.equals(employee.name) : employee.name != null) return false;
         if (age != null ? !age.equals(employee.age) : employee.age != null) return false;
-        return salary != null ? salary.equals(employee.salary) : employee.salary == null;
+        if (salary != null ? !salary.equals(employee.salary) : employee.salary != null) return false;
+        return status == employee.status;
     }
 
     @Override
@@ -29,7 +47,26 @@ public class Employee {
         int result = name != null ? name.hashCode() : 0;
         result = 31 * result + (age != null ? age.hashCode() : 0);
         result = 31 * result + (salary != null ? salary.hashCode() : 0);
+        result = 31 * result + (status != null ? status.hashCode() : 0);
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return "Employee{" +
+                "name='" + name + '\'' +
+                ", age=" + age +
+                ", salary=" + salary +
+                ", status=" + status +
+                '}';
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
     }
 
     public Employee() {
@@ -50,18 +87,11 @@ public class Employee {
         this.salary = salary;
     }
 
-    @Override
-    public String toString() {
-        return "Employee{" +
-                "name='" + name + '\'' +
-                ", age=" + age +
-                ", salary=" + salary +
-                '}';
-    }
-
     public String getName() {
         return name;
     }
+
+
 
     public void setName(String name) {
         this.name = name;
@@ -83,3 +113,5 @@ public class Employee {
         this.salary = salary;
     }
 }
+
+
