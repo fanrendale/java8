@@ -26,3 +26,6 @@ hs_err_pid*
 
 /src/hashmap/
 /src/thread/
+/src/exam/
+.idea/
+test.iml
