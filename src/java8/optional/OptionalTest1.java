@@ -75,7 +75,7 @@ public class OptionalTest1 {
     @Test
     public void test5() {
         Goddness goddness = new Goddness("范冰冰");
-        Man man = new Man(goddness);
+        Man man = new Man();
 
         String name = getMansGoddness(man);
         System.out.println("女神名字：" + name);
@@ -110,12 +110,17 @@ public class OptionalTest1 {
         man = null;
 
         //? 此处的man为null时会自动创建新的Man吗？
+        // 以下为解决问题的结构，只要不满足条件就会调用orElse()方法
        return Optional.ofNullable(man)
-               .map(Man::getGoddness)
-               .map(Goddness::getName)
+               .map(m -> {
+                   System.out.println("第一个map");
+                   return m.getGoddness();
+               })
+               .map(g -> {
+                   System.out.println("第二个map");
+                   return g.getName();
+               })
                //默认值
                .orElse("刘亦菲");
-//               .orElse(new Goddness("刘亦菲"))
-//               .getName();
     }
 }
