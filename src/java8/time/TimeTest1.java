@@ -11,7 +11,8 @@ import java.time.temporal.ChronoUnit;
  * 新的时间日期API
  *
  * 新的时间日期API和以前的API区别：
- *             以前的时间日期API是线程不安全的，新的是线程安全的
+ *             ①以前的时间日期API是线程不安全的，新的是线程安全的
+ *             ②新的时间API每一次操作都会返回一个新的实例
  *
  * @Auther: XuJiaFei
  * @Date: 2019/10/29 09:33
@@ -214,6 +215,9 @@ public class TimeTest1 {
     /**
      * 15.两个日期之间包含多少天，多少月
      *
+     * Duration: 计算两个“时间”之间的间隔
+     * Period： 计算两个“日期”之间的间隔
+     *
      * 计算两个日期之间包含多少天、周、月、年。可以用java.time.Period类完成该功能。
      * 下面例子中将计算日期与将来的日期之间一共有几个月
      */
@@ -252,19 +256,29 @@ public class TimeTest1 {
     /**
      * 17.获取当前时间戳
      *
+     * 时间戳（以Unix元年：1970年1月1日00:00:00到某个时间之间的毫秒值)
+     *
      * Instant类由一个静态的工厂方法now()可以返回当前时间戳
-     *
-     *
      */
     @Test
     public void test17(){
         //可以看到，当前时间戳是包含日期和时间的，与java.util.Date很类似，
         // 事实上Instant就是java8以前的Date，可以使用这个两个类中的方法在这两个类型之间进行转换，
         // 比如Date.from(Instant)就是用来把Instant转换成java.util.date的，而Date。toInstant()就是将Date转换成Instant的
+
+        //默认UTC时区，格林尼治时间
         Instant instant = Instant.now();
         Timestamp timestamp = Timestamp.valueOf(LocalDateTime.now());
+
         System.out.println(timestamp.getTime());
-        System.out.println("当前的时间戳：" + instant.getNano());
+        System.out.println("当前的时间戳：" + instant);
+
+        //获取时间戳的毫秒
+        System.out.println("时间戳毫秒: " + instant.toEpochMilli());
+
+        //对时间戳进行运算
+        Instant instant1 = Instant.ofEpochSecond(60);
+        System.out.println(instant1);
     }
     /**
      * 18.对自定义日期进行解析/格式化
