@@ -2,11 +2,10 @@ package java8.time;
 
 import org.junit.Test;
 
-import java.time.DayOfWeek;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.time.*;
 import java.time.temporal.TemporalAdjusters;
 import java.time.temporal.TemporalField;
+import java.util.Set;
 
 /**
  * 时间矫正器
@@ -51,5 +50,29 @@ public class TemporalAdjusterTest {
         }));
 
         System.out.println("下个工作日：" + nextWorkDay);
+    }
+
+    /**
+     * 测试带时区的时间
+     *
+     * 带时区的意思是，首先获取对应时区的时间，然后可以使用ZonedDateTime为该时间带上时区
+     * 此时区就是相对于格林尼治时间（UTC)来说的偏差，比如中国的时间会带上尾巴“+08:00”，代表UTC时区的时间加上8小时就是中国上海的时间
+     */
+    @Test
+    public void test2(){
+        Set<String> availableZoneIds = ZoneId.getAvailableZoneIds();
+
+        availableZoneIds.forEach(System.out::println);
+
+        System.out.println("======================================分割符=============================");
+
+        LocalDateTime universal = LocalDateTime.now(ZoneId.of("US/Pacific"));
+        System.out.println(universal);
+
+        ZonedDateTime zonedDateTime = ZonedDateTime.of(LocalDateTime.now(), ZoneId.of("Asia/Shanghai"));
+        System.out.println(zonedDateTime);
+
+        ZonedDateTime universal1 = ZonedDateTime.of(universal, ZoneId.of("US/Pacific"));
+        System.out.println(universal1);
     }
 }
